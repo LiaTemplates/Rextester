@@ -59,7 +59,7 @@ var result = null;
 var error  = false;
 
 $.ajax ({
-    url: "https://crossorigin.me/http://rextester.com/rundotnet/api",
+    url: "http://rextester.com/rundotnet/api",
     type: "POST",
     async: false,
     data: { "LanguageChoice": "@0",
