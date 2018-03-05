@@ -32,7 +32,7 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 @Prolog:      19
 @Python:       5
 @Python3:     24
-@eval_R:      @eval(31)
+@evalR:       @eval(31)
 @Ruby:        12
 @Scala:       21
 @Scheme:      22
@@ -81,7 +81,7 @@ $.ajax ({
                     img.attr('src', "data:image/png;base64," + data.Files[key]).height(600).width(700);
 
                     img.appendTo(img_div);
-                    img_div.appendTo($('#Files'));
+                    img_div.appendTo($('#Files@1'));
                 }
             }
         } else {
@@ -99,7 +99,7 @@ else
     result;
 </script>
 
-<div id="Files"> </div>
+<div id="Files@1"> </div>
 @end
 
 -->
@@ -119,8 +119,7 @@ lines(lowess(cars))
 plot(sin, -pi, 2*pi) # see ?plot.function
 
 ## Discrete Distribution Plot:
-plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10,
-     main = "rpois(100, lambda = 5)")
+plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10, main = "rpois(100, lambda = 5)")
 
 ## Simple quantiles/ECDF, see ecdf() {library(stats)} for a better one:
 plot(x <- sort(rnorm(47)), type = "s")
