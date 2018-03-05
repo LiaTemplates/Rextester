@@ -109,6 +109,15 @@ Template for executing code snippets in 45 different programming languages.
 
 See the rendered version [here](https://liascript.github.io/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
 
+## __Python2__
+
+```python
+for i in range(10):
+    print i
+```
+@eval(5,0)
+
+
 ## *R-Interaktiv*
 
 ```R
