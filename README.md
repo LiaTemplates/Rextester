@@ -8,7 +8,50 @@ narrator: Deutsch Female
 
 script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 
-@R:       31
+@NASM:        15
+@C_sharp:      1
+@CPP:          7
+@clang_CPP:   27
+@visual_CPP:  28
+@clang_C:     26
+@visual_C:    29
+@LISP:        18
+@D:           30
+@F_sharp:      3
+@GO:          20
+@Haskell:     11
+@Java:         4
+@JavaScript:  17
+@LUA:         14
+@NodeJS:      23
+@Octave:      25
+@ObjectiveC:  10
+@Pascal:       9
+@Perl:        13
+@PHP:          8
+@Prolog:      19
+@Python:       5
+@Python3:     24
+@R:           31
+@Ruby:        12
+@Scala:       21
+@Scheme:      22
+@SQL_server:  16
+@MySQL:       33
+@Oracle:      35
+@PostgreSQL:  34
+@TCL:         32
+@BASIC:        2
+@ClientSide:  36
+@Swift:       37
+@BASH:        38
+@ADA:         39
+@Erlang:      40
+@Elixir:      41
+@OCaml:       42
+@Kotlin:      43
+@Brainfuck:   44
+@Fortran:     45
 
 @eval
 <script>
@@ -62,10 +105,11 @@ else
 -->
 
 # rextester_template
-Template for executing code snippets in 26 different programming languages
+Template for executing code snippets in 45 different programming languages.
 
+See the rendered version [here](https://liascript.github.io/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
 
-## *R-Interaktiv*<!-- class = "animated infinite bounce" style = "color: red;" -->
+## *R-Interaktiv*
 
 ```R
 require(stats) # for lowess, rpois, rnorm
