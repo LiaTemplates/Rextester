@@ -32,7 +32,7 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 @Prolog:      19
 @Python:       5
 @Python3:     24
-@R:           31
+@eval_R:      @eval(31)
 @Ruby:        12
 @Scala:       21
 @Scheme:      22
@@ -81,7 +81,7 @@ $.ajax ({
                     img.attr('src', "data:image/png;base64," + data.Files[key]).height(600).width(700);
 
                     img.appendTo(img_div);
-                    img_div.appendTo($('#Files@1'));
+                    img_div.appendTo($('#Files'));
                 }
             }
         } else {
@@ -99,7 +99,7 @@ else
     result;
 </script>
 
-<div id="Files@1"> </div>
+<div id="Files"> </div>
 @end
 
 -->
@@ -126,4 +126,4 @@ plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10,
 plot(x <- sort(rnorm(47)), type = "s")
 points(x, cex = .5, col = "dark red")
 ```
-@eval(@R,1)
+@eval_R
