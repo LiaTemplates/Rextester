@@ -32,7 +32,7 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 @Prolog:      19
 @Python:       5
 @Python3:     24
-@evalR:       @eval(31)
+@R:           31
 @Ruby:        12
 @Scala:       21
 @Scheme:      22
@@ -115,7 +115,7 @@ See the rendered version [here](https://liascript.github.io/?https://raw.githubu
 for i in range(10):
     print i
 ```
-@eval(5,0)
+@eval(@Python,0)
 
 
 ## *R-Interaktiv*
@@ -134,4 +134,4 @@ plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10, main = "rpois(100,
 plot(x <- sort(rnorm(47)), type = "s")
 points(x, cex = .5, col = "dark red")
 ```
-@eval(31,1)
+@eval(@R,1)
