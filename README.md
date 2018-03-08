@@ -59,8 +59,8 @@ var result = null;
 var error  = false;
 
 $.ajax ({
-    url: "https://www.google.ie/gwt/x?u=http://rextester.com/rundotnet/api",
-    type: "POST",
+    url: "http://rextester.com/rundotnet/api",
+    type: "GET",
     async: false,
     data: { "LanguageChoice": "@0",
             "Program": `{X}`,
