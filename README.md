@@ -60,7 +60,7 @@ var error  = false;
 
 $.ajax ({
     url: "http://rextester.com/rundotnet/api",
-    type: "POST",
+    type: "GET",
     async: false,
     data: { "LanguageChoice": "@0",
             "Program": `{X}`,
