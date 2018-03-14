@@ -105,9 +105,21 @@ else
 -->
 
 # rextester_template
+
 Template for executing code snippets in 45 different programming languages.
 
-See the rendered version [here](https://liascript.github.io/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
+See the rendered version [here](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
+
+                               --{{0}}--
+Unfortunately, to be able to use rextester you will have to allow active mixed
+mode content, but its worth it. To enable this setting in your browser, follow
+the following steps.
+
+**Firefox:**
+
+1. go to [about:config](about:config)
+2. search for "security.mixed_content.block_active_content"
+3. double-click on it, to disable it (set to false)
 
 ## __Python2__
 
