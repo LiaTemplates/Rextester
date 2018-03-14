@@ -117,7 +117,7 @@ the following steps.
 
 **Firefox:**
 
-1. go to [about:config](about:config)
+1. enter about:config in your browser-url
 2. search for "security.mixed_content.block_active_content"
 3. double-click on it, to disable it (set to false)
 
