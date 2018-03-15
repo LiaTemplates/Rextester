@@ -130,6 +130,45 @@ depicted below.
 
 ![enable mixed content](img/chrome.png)
 
+## Ada
+
+```ada
+--GNAT 4.9.3
+
+with Ada.Text_IO; use Ada.Text_IO;
+procedure Hello is
+begin
+    Put_Line ("Hello, world!");
+end Hello;
+```
+@eval(@ADA,0)
+
+## Assembly
+
+```assembly
+;nasm 2.11.08
+
+section .data
+    hello:     db 'Hello world!',10    ; 'Hello world!' plus a linefeed character
+    helloLen:  equ $-hello             ; Length of the 'Hello world!' string
+
+section .text
+	global _start
+
+_start:
+	mov eax,4            ; The system call for write (sys_write)
+	mov ebx,1            ; File descriptor 1 - standard output
+	mov ecx,hello        ; Put the offset of hello in ecx
+	mov edx,helloLen     ; helloLen is a constant, so we don't need to say
+	                     ;  mov edx,[helloLen] to get it's actual value
+	int 80h              ; Call the kernel
+
+	mov eax,1            ; The system call for exit (sys_exit)
+	mov ebx,0            ; Exit with return code of 0 (no error)
+	int 80h;
+```
+@eval(@NASM,0)
+
 ## Brainfuck
 
 This program prints out the words Hello World!:
@@ -205,7 +244,65 @@ int main()
 
 ## C-Sharp
 
-## Elixir
+``` csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Rextester
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            //Your code goes here
+            Console.WriteLine("Hello, world!");
+        }
+    }
+}
+```
+@eval(@C_sharp, 33)
+
+
+## Elixir ![logo](https://avatars.githubusercontent.com/elixir-lang?s=128)<!-- height="22px" -->
+
+```elixir
+#Elixir 1.1.0
+
+IO.puts "Hello, world!"
+```
+@eval(@Elixir, 33)
+
+## LISP ![logo](https://upload.wikimedia.org/wikipedia/commons/6/64/Lisplogo_alien_256.png)<!-- height="21px" -->
+
+```lisp
+;gnu clisp 2.49
+
+(print "Hello, world!")
+```
+@eval(@LISP, 33)
+
+
+## Java
+
+
+``` java
+//'main' method must be in a class 'Rextester'.
+//Compiler version 1.8.0_111
+
+import java.util.*;
+import java.lang.*;
+
+class Rextester
+{
+    public static void main(String args[])
+    {
+        System.out.println("Hello, World!");
+    }
+}
+```
+@eval(@Java, 33)
 
 ## Python2
 
@@ -245,3 +342,56 @@ points(x, cex = .5, col = "dark red")
 select @@version as 'sql server version'
 ```
 @eval(@SQL_server,1)
+
+
+## Prolog
+
+```prolog
+exists(A, list(A, _, _, _, _)).
+exists(A, list(_, A, _, _, _)).
+exists(A, list(_, _, A, _, _)).
+exists(A, list(_, _, _, A, _)).
+exists(A, list(_, _, _, _, A)).
+
+rightOf(R, L, list(L, R, _, _, _)).
+rightOf(R, L, list(_, L, R, _, _)).
+rightOf(R, L, list(_, _, L, R, _)).
+rightOf(R, L, list(_, _, _, L, R)).
+
+middle(A, list(_, _, A, _, _)).
+
+first(A, list(A, _, _, _, _)).
+
+nextTo(A, B, list(B, A, _, _, _)).
+nextTo(A, B, list(_, B, A, _, _)).
+nextTo(A, B, list(_, _, B, A, _)).
+nextTo(A, B, list(_, _, _, B, A)).
+nextTo(A, B, list(A, B, _, _, _)).
+nextTo(A, B, list(_, A, B, _, _)).
+nextTo(A, B, list(_, _, A, B, _)).
+nextTo(A, B, list(_, _, _, A, B)).
+
+puzzle(Houses) :-
+    exists(house(red, english, _, _, _), Houses),
+    exists(house(_, spaniard, _, _, dog), Houses),
+    exists(house(green, _, coffee, _, _), Houses),
+    exists(house(_, ukrainian, tea, _, _), Houses),
+    rightOf(house(green, _, _, _, _), house(ivory, _, _, _, _), Houses),
+    exists(house(_, _, _, oldgold, snails), Houses),
+    exists(house(yellow, _, _, kools, _), Houses),
+    middle(house(_, _, milk, _, _), Houses),
+    first(house(_, norwegian, _, _, _), Houses),
+    nextTo(house(_, _, _, chesterfield, _), house(_, _, _, _, fox), Houses),
+    nextTo(house(_, _, _, kools, _),house(_, _, _, _, horse), Houses),
+    exists(house(_, _, orangejuice, luckystike, _), Houses),
+    exists(house(_, japanese, _, parliament, _), Houses),
+    nextTo(house(_, norwegian, _, _, _), house(blue, _, _, _, _), Houses),
+    exists(house(_, _, water, _, _), Houses),
+    exists(house(_, _, _, _, zebra), Houses).
+
+solution(WaterDrinker, ZebraOwner) :-
+    puzzle(Houses),
+    exists(house(_, WaterDrinker, water, _, _), Houses),
+    exists(house(_, ZebraOwner, _, _, zebra), Houses).
+```
+@eval(@Prolog,1)
