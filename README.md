@@ -178,6 +178,33 @@ The same program in minimised form:
 ```
 @eval(@Brainfuck,1)
 
+## C
+
+```c main.c
+#include  <stdio.h>
+
+int main(void)
+{
+    printf("Hello, world!\n");
+    return 0;
+}
+```
+@eval(@C,1)
+
+## C++
+
+```cpp main.cpp
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello, world!\n";
+}
+```
+@eval(@CPP,1)
+
+## C-Sharp
+
 ## Elixir
 
 ## Python2
