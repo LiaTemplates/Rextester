@@ -180,7 +180,7 @@ The same program in minimised form:
 
 ## C
 
-```c main.c
+```c
 #include  <stdio.h>
 
 int main(void)
@@ -193,7 +193,7 @@ int main(void)
 
 ## C++
 
-```cpp main.cpp
+```cpp
 #include <iostream>
 
 int main()
