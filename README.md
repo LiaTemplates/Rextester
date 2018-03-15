@@ -108,7 +108,9 @@ else
 
 Template for executing code snippets in 45 different programming languages.
 
-See the rendered version [here](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
+If you are on github, then see the rendered version [here](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
+
+github-project:
 
                                --{{0}}--
 Unfortunately, to be able to use rextester you will have to allow active mixed
@@ -121,7 +123,21 @@ the following steps.
 2. search for "security.mixed_content.block_active_content"
 3. double-click on it, to disable it (set to false)
 
-## __Python2__
+**Chrome(ium)**
+
+Click on the shield in upper right corner and load unsecure content, as it is
+depicted below.
+
+![enable mixed content](img/chrome.png)
+
+## Brainfuck
+
+```brainfuck
+++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+```
+@eval(@Brainfuck,0)
+
+## Python2
 
 ```python
 for i in range(10):
@@ -130,7 +146,7 @@ for i in range(10):
 @eval(@Python,0)
 
 
-## *R-Interaktiv*
+## R
 
 ```R
 require(stats) # for lowess, rpois, rnorm
