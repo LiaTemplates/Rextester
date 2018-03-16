@@ -65,7 +65,7 @@ $.ajax ({
     data: { "LanguageChoice": "@0",
             "Program": `{X}`,
             "Input": "",
-            "CompilerArgs" : ""}
+            "CompilerArgs" : @2}
     }).done(function(data) {
         if (data.Errors == null) {
             result = data.Result;
@@ -106,15 +106,16 @@ else
 
 # rextester_template
 
-Template for executing code snippets in 45 different programming languages.
+Template for executing code snippets in 45 different programming languages by
+using the [rextester api](http://rextester.com).
 
 If you are on github, then see the rendered version [here](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
 
-github-project:
+github-project: https://github.com/liaScript/rextester_template
 
                                --{{0}}--
 Unfortunately, to be able to use rextester you will have to allow active mixed
-mode content, but its worth it. To enable this setting in your browser, follow
+mode content, but its worth it, see for example the output of the [R-program](https//liascript.github.io/course/?https//raw.githubusercontent.com/liaScript/rextester_template/master/README.md%2333). To enable this setting in your browser, follow
 the following steps.
 
 **Firefox:**
@@ -130,6 +131,10 @@ depicted below.
 
 ![enable mixed content](img/chrome.png)
 
+                               --{{1}}--
+If you want to change some of the code snippets, simply double-click on them to
+enter the edit mode.
+
 ## Ada
 
 ```ada
@@ -141,11 +146,11 @@ begin
     Put_Line ("Hello, world!");
 end Hello;
 ```
-@eval(@ADA,0)
+@eval(@ADA,0,"")
 
 ## Assembly
 
-```assembly
+```armasm
 ;nasm 2.11.08
 
 section .data
@@ -167,7 +172,17 @@ _start:
 	mov ebx,0            ; Exit with return code of 0 (no error)
 	int 80h;
 ```
-@eval(@NASM,0)
+@eval(@NASM,0,"")
+
+## BASH
+
+```bash
+#!/bin/bash
+# GNU bash, version 4.3.46
+
+echo "Hello, world!";
+```
+@eval(@BASH,0,"")
 
 ## Brainfuck
 
@@ -208,14 +223,14 @@ This program prints out the words Hello World!:
 32 >>+.                    Add 1 to Cell #5 gives us an exclamation point
 33 >++.                    And finally a newline from Cell #6
 ```
-@eval(@Brainfuck,0)
+@eval(@Brainfuck,0,"")
 
 The same program in minimised form:
 
 ```brainfuck
 ++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 ```
-@eval(@Brainfuck,1)
+@eval(@Brainfuck,1,"")
 
 ## C
 
@@ -224,11 +239,11 @@ The same program in minimised form:
 
 int main(void)
 {
-    printf("Hello, world!\n");
+    printf("Hello, world!\\n");
     return 0;
 }
 ```
-@eval(@C,1)
+@eval(@clang_C,1,"-Wall -std=gnu99 -O2 -o a.out source_file.c")
 
 ## C++
 
@@ -237,12 +252,12 @@ int main(void)
 
 int main()
 {
-    std::cout << "Hello, world!\n";
+    std::cout << "Hello, world!\\n";
 }
 ```
-@eval(@CPP,1)
+@eval(@CPP,1,"-Wall -std=c++14 -O2 -o a.out source_file.cpp")
 
-## C-Sharp
+## C\#
 
 ``` csharp
 using System;
@@ -262,7 +277,21 @@ namespace Rextester
     }
 }
 ```
-@eval(@C_sharp, 33)
+@eval(@C_sharp, 33,"")
+
+## D
+
+``` d
+//DMD64 D Compiler 2.072.2
+
+import std.stdio;
+
+void main()
+{
+    writeln("Hello, World!");
+}
+```
+@eval(@D, 33,"source_file.d -ofa.out")
 
 
 ## Elixir ![logo](https://avatars.githubusercontent.com/elixir-lang?s=128)<!-- height="22px" -->
@@ -272,16 +301,65 @@ namespace Rextester
 
 IO.puts "Hello, world!"
 ```
-@eval(@Elixir, 33)
+@eval(@Elixir, 33,"")
 
-## LISP ![logo](https://upload.wikimedia.org/wikipedia/commons/6/64/Lisplogo_alien_256.png)<!-- height="21px" -->
+## Erlang
 
-```lisp
-;gnu clisp 2.49
+```erlang
+%Erlang 7.3
+%dont change first 3 lines
 
-(print "Hello, world!")
+-module(source).
+	-export([entry_point/0]).
+
+	entry_point() ->
+		io:fwrite("Hello, world\n").
 ```
-@eval(@LISP, 33)
+@eval(@Erlang, 33,"")
+
+## F\#
+
+```fsharp
+//F# Compiler for F# 4.0 (Open Source Edition), Mono 4.2.1
+
+open System
+printfn "Hello, World!"
+```
+@eval(@F_sharp, 33,"")
+
+## Fortran
+
+```fortran
+!gfortran, gcc version 5.4.0 20160609
+
+program hello
+    print *, "Hello World!"
+end program hello
+```
+@eval(@Fortran, 33,"")
+
+## Go
+
+``` go
+//go 1.6.2
+
+package main
+import "fmt"
+
+func main() {
+    fmt.Printf("hello, world\\n")
+}
+```
+@eval(@GO, 33,"-o a.out source_file.go")
+
+## Haskell
+
+```haskell
+--ghc 7.10
+
+main = print $ "Hello, world!"
+```
+@eval(@Haskell, 33,"-o a.out source_file.hs")
 
 
 ## Java
@@ -302,47 +380,154 @@ class Rextester
     }
 }
 ```
-@eval(@Java, 33)
+@eval(@Java, 33,"")
 
-## Python2
 
-```python
-for i in range(10):
-    print i
+## Kotlin
+
+```kotlin
+//Kotlin 1.1
+
+fun main(args: Array<String>) {
+    println("Hello, world!")
+}
 ```
-@eval(@Python,0)
-
-## Python3
+@eval(@Kotlin, 33,"")
 
 
-## R
+## LISP ![logo](https://upload.wikimedia.org/wikipedia/commons/6/64/Lisplogo_alien_256.png)<!-- height="21px" -->
 
-```R
-require(stats) # for lowess, rpois, rnorm
-plot(cars)
-lines(lowess(cars))
+```lisp
+;gnu clisp 2.49
 
-plot(sin, -pi, 2*pi) # see ?plot.function
-
-## Discrete Distribution Plot:
-plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10, main = "rpois(100, lambda = 5)")
-
-## Simple quantiles/ECDF, see ecdf() {library(stats)} for a better one:
-plot(x <- sort(rnorm(47)), type = "s")
-points(x, cex = .5, col = "dark red")
+(print "Hello, world!")
 ```
-@eval(@R,1)
+@eval(@LISP, 33,"")
 
-## SQL-Server
+## LUA
 
-```sql
---Sql Server 2014 Express Edition
---Batches are separated by 'go'
+```lua
+--lua 5.3
 
-select @@version as 'sql server version'
+print ("Hello, World!")
 ```
-@eval(@SQL_server,1)
+@eval(@LUA, 33,"")
 
+## MySQL
+
+```SQL
+#MySQL 5.7.12
+#please drop objects you've created at the end of the script
+#or check for their existance before creating
+#'\\' is a delimiter
+
+select version() as 'mysql version'
+```
+@eval(@MySQL, 33,"")
+
+## NodeJS
+
+```js
+//nodejs v4.2.6
+
+console.log("Hello, World!");
+```
+@eval(@NodeJS, 33,"")
+
+## OCaml
+
+```ocaml
+(*The OCaml compiler, version 4.02.3*)
+
+print_string "Hello, world!\\n";;
+```
+@eval(@OCaml, 33,"")
+
+## Octave
+
+```matlab
+% To view plots after 'plot' (and other plot-producing commands) this command
+% must follow: 'print -dpng some_unique_plot_name.png;'
+% It exports current plot to png image which then is sent to your browser
+% GNU Octave 4.0.0
+
+x=1:0.1:10;
+plot(x, sin(x));
+print -dpng some_name.png;
+```
+@eval(@Octave, 33,"")
+
+## Objective-C
+
+```ObjectiveC
+//gcc 5.0.4
+
+#import <Foundation/Foundation.h>
+
+int main (int argc, const char * argv[])
+{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSLog (@"Hello, World!");
+    [pool drain];
+    return 0;
+}
+```
+@eval(@ObjectiveC, 33,"-MMD -MP -DGNUSTEP -DGNUSTEP_BASE_LIBRARY=1 -DGNU_GUI_LIBRARY=1 -DGNU_RUNTIME=1 -DGNUSTEP_BASE_LIBRARY=1 -fno-strict-aliasing -fexceptions -fobjc-exceptions -D_NATIVE_OBJC_EXCEPTIONS -pthread -fPIC -Wall -DGSWARN -DGSDIAGNOSE -Wno-import -g -O2 -fgnu-runtime -fconstant-string-class=NSConstantString -I. -I /usr/include/GNUstep -I/usr/include/GNUstep -o a.out source_file.m -lobjc -lgnustep-base")
+
+## Oracle
+
+```SQL
+--Oracle 11g Express Edition
+--please drop objects you've created at the end of the script
+--or check for their existance before creating
+--'\\' is a delimiter
+
+select banner as "oracle version" from v$version
+```
+@eval(@Oracle, 33,"")
+
+## Pascal
+
+```pascal
+//fpc 3.0.0
+
+program HelloWorld;
+
+begin
+    writeln('Hello, world!');
+end.
+```
+@eval(@Pascal, 33,"")
+
+## Perl
+
+```perl
+#perl 5.22.1
+
+print "Hello World\\n";
+```
+@eval(@Perl, 33,"")
+
+## PHP
+
+```PHP
+<?php //php 7.0.8
+
+    echo "Hello, world! "
+
+?>
+```
+@eval(@PHP, 33,"")
+
+## PostgreSQL
+
+```SQL
+--PostgreSQL 9.6
+--'\\' is a delimiter
+
+select version() as postgresql_version
+```
+@eval(@PostgreSQL, 33,"")
 
 ## Prolog
 
@@ -394,4 +579,121 @@ solution(WaterDrinker, ZebraOwner) :-
     exists(house(_, WaterDrinker, water, _, _), Houses),
     exists(house(_, ZebraOwner, _, _, zebra), Houses).
 ```
-@eval(@Prolog,1)
+@eval(@Prolog,1,"")
+
+
+## Python2
+
+```python
+for i in range(10):
+    print i
+```
+@eval(@Python,0,"")
+
+## Python3
+
+```python
+for i in range(10):
+    print("Hello World", i)
+```
+@eval(@Python3,0,"")
+
+## R
+
+```R
+require(stats) # for lowess, rpois, rnorm
+plot(cars)
+lines(lowess(cars))
+
+plot(sin, -pi, 2*pi) # see ?plot.function
+
+## Discrete Distribution Plot:
+plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10, main = "rpois(100, lambda = 5)")
+
+## Simple quantiles/ECDF, see ecdf() {library(stats)} for a better one:
+plot(x <- sort(rnorm(47)), type = "s")
+points(x, cex = .5, col = "dark red")
+```
+@eval(@R,1,"")
+
+## Ruby
+
+```ruby
+#ruby 2.3.1
+
+puts "Hello, world!"
+```
+@eval(@Ruby,1,"")
+
+## Scala
+
+```scala
+//'Rextester' class is the entry point for your code.
+//Don't declare a package.
+//scala 2.11.7
+
+object Rextester extends App {
+    println("Hello, World!")
+}
+```
+@eval(@Scala,1,"")
+
+## Scheme
+
+```lisp
+;guile 2.0.11
+
+(display "Hello, World!")
+```
+@eval(@Scheme,1,"")
+
+## SQL-Server
+
+```SQL
+--Sql Server 2014 Express Edition
+--Batches are separated by 'go'
+
+select @@version as 'sql server version'
+```
+@eval(@SQL_server,1,"")
+
+## Swift
+
+```swift
+//swift 3.0.2
+
+print("Hello, world!")
+```
+@eval(@Swift,1,"")
+
+
+## TCL
+
+``` tcl
+#tclsh 8.6
+
+puts "Hello, world!"
+```
+@eval(@TCL,1,"")
+
+## Visual BASIC
+
+``` purebasic
+'Rextester.Program.Main is the entry point for your code. Don't change it.
+'Compiler version 11.0.50709.17929 for Microsoft (R) .NET Framework 4.5
+
+Imports System
+Imports System.Collections.Generic
+Imports System.Linq
+Imports System.Text.RegularExpressions
+
+Namespace Rextester
+    Public Module Program
+        Public Sub Main(args() As string)
+            'Your code goes here
+            Console.WriteLine("Hello, world!")
+        End Sub
+    End Module
+End Namespace
+```
+@eval(@BASIC,1,"")
