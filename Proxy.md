@@ -59,7 +59,7 @@ var result = null;
 var error  = false;
 
 $.ajax ({
-    url: "https://tst.ess-project.ovgu.de/rundotnet/api",
+    url: "https://test.ess-project.ovgu.de/rundotnet/api",
     type: "POST",
     async: false,
     data: { "LanguageChoice": "@0",
