@@ -106,30 +106,19 @@ else
 
 # rextester_template
 
-Template for executing code snippets in 45 different programming languages by
-using the [rextester api](http://rextester.com).
+Proxy-version of the
+[rextester_template](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
+for executing code snippets in 45 differentprogramming languages by using the
+[rextester api](http://rextester.com). But instead of using the original api and
+getting mixed-content-errors, we have created a proxy for testing purposes,
+through which all requests get passed:
 
-If you are on github, then see the rendered version [here](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md)
+https://test.ess-project.ovgu.de/rundotnet/api
+
+If you are on github, then see the rendered version [here](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/Proxy.md)
 
 github-project: https://github.com/liaScript/rextester_template
 
-                               --{{0}}--
-Unfortunately, to be able to use rextester you will have to allow active mixed
-mode content, but its worth it, see for example the output of the [R-program](https//liascript.github.io/course/?https%3A%2F%2Fraw.githubusercontent.com%2FliaScript%2Frextester_template%2Fmaster%2FREADME.md%2333). To enable this setting in your browser, follow
-the following steps.
-
-**Firefox:**
-
-1. enter about:config in your browser-url
-2. search for "security.mixed_content.block_active_content"
-3. double-click on it, to disable it (set to false)
-
-**Chrome(ium)**
-
-Click on the shield in upper right corner and load unsecure content, as it is
-depicted below.
-
-![enable mixed content](img/chrome.png)
 
                                --{{1}}--
 If you want to change some of the code snippets, simply double-click on them to
