@@ -63,7 +63,7 @@ $.ajax ({
     type: "POST",
     async: false,
     data: { "LanguageChoice": "@0",
-            "Program": `{X}`,
+            "Program": `{{0}}`,
             "Input": "",
             "CompilerArgs" : @2}
     }).done(function(data) {
