@@ -3,8 +3,8 @@
 author:   André Dietrich
 email:    andre.dietrich@ovgu.de
 version:  1.0.0
-language: de_DE
-narrator: Deutsch Female
+language: en
+narrator: US English Female
 
 script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 
