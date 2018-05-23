@@ -115,7 +115,7 @@ github-project: https://github.com/liaScript/rextester_template
 
                                --{{0}}--
 Unfortunately, to be able to use rextester you will have to allow active mixed
-mode content, but its worth it, see for example the output of the [R-program](https//liascript.github.io/course/?https%3A%2F%2Fraw.githubusercontent.com%2FliaScript%2Frextester_template%2Fmaster%2FREADME.md%2333). To enable this setting in your browser, follow
+mode content, but its worth it, see for example the output of the [R-program](https://liascript.github.io/course/?https%3A%2F%2Fraw.githubusercontent.com%2FliaScript%2Frextester_template%2Fmaster%2FREADME.md%2333). To enable this setting in your browser, follow
 the following steps or go to the proxied version of this document.
 
 **Proxy:**
