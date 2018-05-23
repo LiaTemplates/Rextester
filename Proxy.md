@@ -53,15 +53,16 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 @Brainfuck:   44
 @Fortran:     45
 
+
 @eval
 <script>
-var result = null;
+//var result = null;
 var error  = false;
 
 $.ajax ({
     url: "https://test.ess-project.ovgu.de/rundotnet/api",
     type: "POST",
-    async: false,
+    async: true,
     data: { "LanguageChoice": "@0",
             "Program": `{{0}}`,
             "Input": "",
@@ -84,19 +85,18 @@ $.ajax ({
                     img_div.appendTo($('#Files@1'));
                 }
             }
+
+            evalOk(0, data.Result);
         } else {
-            error  = true;
-            result = data.Errors;
+            evalErr(0, data.Errors, [[{ row : 1, column : 1, text : "error",
+              type : "error" }]]);
         }
     }).fail(function(data, err) {
-        error = true;
-        result = JSON.stringify(err);
+        evalErr(0, JSON.stringify(err), [[{ row : 1, column : 1, text : "error",
+          type : "error" }]]);
     });
 
-if (error)
-    throw {message: result};
-else
-    result;
+"LIA wait!"
 </script>
 
 <div id="Files@1"> </div>
