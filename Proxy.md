@@ -246,7 +246,7 @@ int main()
 ```
 @eval(@CPP,1,"-Wall -std=c++14 -O2 -o a.out source_file.cpp")
 
-## C\#
+## C#
 
 ``` csharp
 using System;
@@ -306,7 +306,7 @@ IO.puts "Hello, world!"
 ```
 @eval(@Erlang, 33,"")
 
-## F\#
+## F#
 
 ```fsharp
 //F# Compiler for F# 4.0 (Open Source Edition), Mono 4.2.1
