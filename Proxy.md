@@ -60,7 +60,7 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 var error  = false;
 
 $.ajax ({
-    url: "https://test.ess-project.ovgu.de/rundotnet/api",
+    url: "https://rextesterfwd.ess-project.ovgu.de/rundotnet/api",
     type: "POST",
     async: true,
     data: { "LanguageChoice": "@0",
@@ -113,7 +113,7 @@ for executing code snippets in 45 differentprogramming languages by using the
 getting mixed-content-errors, we have created a proxy for testing purposes,
 through which all requests get passed:
 
-https://test.ess-project.ovgu.de/rundotnet/api
+https://rextesterfwd.ess-project.ovgu.de/rundotnet/api
 
 If you are on github, then see the rendered version [here](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/Proxy.md)
 
