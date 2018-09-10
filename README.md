@@ -119,7 +119,7 @@ the following steps or go to the proxied version of this document.
 
 **Proxy:**
 
-Click [here](https://liascript.github.io/course/?https//raw.githubusercontent.com/liaScript/rextester_template/master/Proxy.md) to get to the proxied version of this template.
+Click [here](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/Proxy.md) to get to the proxied version of this template.
 
 **Firefox:**
 
