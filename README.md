@@ -58,14 +58,18 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 //var result = null;
 var error  = false;
 
+console.log = function(e) { send.lia("log", JSON.stringify(e)); };
+
+
+
 $.ajax ({
-    url: "http://rextester.com/rundotnet/api",
+    url: "https://rextester.com/rundotnet/api",
     type: "POST",
-    async: true,
-    data: { "LanguageChoice": "@0",
-            "Program": `@input`,
-            "Input": "",
-            "CompilerArgs" : @2}
+
+    data: { LanguageChoice: @0,
+            Program: `@input`,
+            Input: `@1`,
+            CompilerArgs : @2}
     }).done(function(data) {
         if (data.Errors == null) {
             result = data.Result;
@@ -82,20 +86,22 @@ $.ajax ({
 
                     img.appendTo(img_div);
                     img_div.appendTo($('#Files@1'));
+
+                    console.log(key);
                 }
             }
 
-            evalOk(0, data.Result);
+            send.lia("eval", data.Result+"\n-------------------\n"+data.Stats);
         } else {
-            evalErr(0, data.Errors, [[{ row : 1, column : 1, text : "error",
-              type : "error" }]]);
+            send.lia("log", data.Errors, [], false);
+            send.lia("eval", "LIA: stop");
         }
     }).fail(function(data, err) {
-        evalErr(0, JSON.stringify(err), [[{ row : 1, column : 1, text : "error",
-          type : "error" }]]);
+        send.lia("log", data.Errors, [], false);
+        send.lia("eval", "LIA: stop");
     });
 
-"LIA wait!"
+"LIA: wait"
 </script>
 
 <div id="Files@1"> </div>
@@ -233,7 +239,7 @@ The same program in minimised form:
 ```brainfuck
 ++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 ```
-@eval(@Brainfuck,1,"")
+@eval(@Brainfuck,``,"")
 
 ## C
 
@@ -242,11 +248,11 @@ The same program in minimised form:
 
 int main(void)
 {
-    printf("Hello, world!\\n");
+    printf("Hello, world!\n");
     return 0;
 }
 ```
-@eval(@clang_C,1,"-Wall -std=gnu99 -O2 -o a.out source_file.c")
+@eval(@clang_C, ,"-Wall -std=gnu99 -O2 -o a.out source_file.c")
 
 ## C++
 
@@ -255,10 +261,30 @@ int main(void)
 
 int main()
 {
-    std::cout << "Hello, world!\\n";
+    std::cout << "Hello, world!\n";
 }
 ```
-@eval(@CPP,1,"-Wall -std=c++14 -O2 -o a.out source_file.cpp")
+@eval(@CPP, ,"-Wall -std=c++14 -O2 -o a.out source_file.cpp")
+
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    int i = 0;
+
+    std::cin >> i;
+
+    for(; i; i--)
+        std::cout << "Hello, world! " << i << std::endl;
+}
+```
+``` bash stdin
+5
+```
+@eval(@CPP,`@input(1)`,"-Wall -std=c++14 -O2 -o a.out source_file.cpp")
+
 
 ## C#
 
@@ -350,7 +376,7 @@ package main
 import "fmt"
 
 func main() {
-    fmt.Printf("hello, world\\n")
+    fmt.Printf("hello, world\n")
 }
 ```
 @eval(@GO, 33,"-o a.out source_file.go")
@@ -442,7 +468,7 @@ console.log("Hello, World!");
 ```ocaml
 (*The OCaml compiler, version 4.02.3*)
 
-print_string "Hello, world!\\n";;
+print_string "Hello, world!\n";;
 ```
 @eval(@OCaml, 33,"")
 
@@ -507,7 +533,7 @@ end.
 ```perl
 #perl 5.22.1
 
-print "Hello World\\n";
+print "Hello World\n";
 ```
 @eval(@Perl, 33,"")
 
