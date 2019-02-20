@@ -8,27 +8,41 @@ narrator: US English Female
 
 script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 
-@NASM:        15
-@C_sharp:      1
+@Ada:         39
+@Bash:        38
+@Basic:        2
+@Brainfuck:   44
+@C:            6
+@C_clang:     26
+@C_vc:        29
 @CPP:          7
-@clang_CPP:   27
-@visual_CPP:  28
-@clang_C:     26
-@visual_C:    29
-@LISP:        18
+@CPP_clang:   27
+@CPP_vc:      28
+@CSharp:       1
+@ClientSide:  36
 @D:           30
-@F_sharp:      3
-@GO:          20
+@Elixir:      41
+@Erlang:      40
+@Fortran:     45
+@FSharp:      3
+@Go:          20
 @Haskell:     11
 @Java:         4
 @JavaScript:  17
-@LUA:         14
+@Kotlin:      43
+@Lisp:        18
+@Lua:         14
+@MySQL:       33
+@Nasm:        15
 @NodeJS:      23
-@Octave:      25
 @ObjectiveC:  10
+@OCaml:       42
+@Octave:      25
+@Oracle:      35
 @Pascal:       9
 @Perl:        13
 @PHP:          8
+@PostgreSQL:  34
 @Prolog:      19
 @Python:       5
 @Python3:     24
@@ -36,24 +50,188 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 @Ruby:        12
 @Scala:       21
 @Scheme:      22
-@SQL_server:  16
-@MySQL:       33
-@Oracle:      35
-@PostgreSQL:  34
-@TCL:         32
-@BASIC:        2
-@ClientSide:  36
+@SQL_Server:  16
 @Swift:       37
-@BASH:        38
-@ADA:         39
-@Erlang:      40
-@Elixir:      41
-@OCaml:       42
-@Kotlin:      43
-@Brainfuck:   44
-@Fortran:     45
+@TCL:         32
 
-@eval
+
+@Rextester.eval: @Rextester._eval_(@uid,@0,@1,@2,@3,@4,@5)
+
+@Rextester._eval_
+<script>
+function stats(data, show) {
+  if(!show)
+    return "";
+  return  ("\n-------Stat-------\n" + data.Stats.replace(/, /g, "\n"));
+}
+
+function parse(data) {
+  try { return eval(`@5`); }
+  catch(e) { return []; }
+}
+
+
+let debug = "@2".trim();
+if(debug == "true")
+  debug = true;
+else
+  debug = false;
+
+let input = `@3`;
+if(input[0]=='@' && input[1]=='2')
+  input = "";
+
+let args = "@4";
+if(args[0]=='@' && args[1]=='3')
+  args = "";
+
+
+$.ajax ({
+  url: "https://rextester.com/rundotnet/api",
+  type: "POST",
+  timeout: 10000,
+  data: { LanguageChoice: @1,
+          Program: `@input`,
+          Input: input,
+          CompilerArgs : args}
+  }).done(function(data) {
+    if (data.Errors == null) {
+      send.lia(data.Result + stats(data, debug), parse(data), true);
+      send.lia("LIA: stop");
+    } else {
+      send.lia(data.Errors + stats(data, debug), parse(data), false);
+      send.lia("LIA: stop");
+    }
+  }).fail(function(data, err) {
+    send.lia(err, [], false);
+    send.lia("LIA: stop");
+  });
+
+"LIA: wait"
+</script>
+
+<div id="rextester_@0"> </div>
+@end
+
+@Rextester.Ada
+@Rextester._eval_(@uid,@Ada,false, , ,```
+let re_s = ":([0-9]+):([0-9]+):(.+)";
+let re_g = new RegExp(re_s, "g");
+let re_i = new RegExp(re_s, "i");
+let rslt = data.Errors.match(re_g);
+let i = 0;
+for(i = 0; i < rslt.length; i++) {
+  let e = rslt[i].match(re_i);
+  rslt[i] = { row : e[1]-1, column : e[2], text : e[3], type : "error"};
+}
+[rslt];```)
+@end
+
+@Rextester.Errors_C
+function par(dat, type) {
+  try {
+    let re_s = ":([0-9]+):([0-9]+): "+type+": (.+)";
+    let re_g = new RegExp(re_s, "g");
+    let re_i = new RegExp(re_s, "i");
+
+    let rslt = dat.match(re_g);
+
+    let i = 0;
+    for(i = 0; i < rslt.length; i++) {
+        let e = rslt[i].match(re_i);
+
+        rslt[i] = { row : e[1]-1, column : e[2], text : e[3], type : type};
+    }
+    return [rslt];
+  } catch(e) {
+    return [];
+  }
+};
+
+let errors = par(data.Errors, "error");
+let warnings = par(data.Warnings, "warning")
+
+errors.concat(warnings);
+@end
+
+@Rextester.Errors_VC
+function par(dat, type) {
+  try {
+    let re_s = "([0-9]+).: "+type+" C[0-9]+:(.+)";
+    let re_g = new RegExp(re_s, "g");
+    let re_i = new RegExp(re_s, "i");
+
+    let rslt = dat.match(re_g);
+
+    let i = 0;
+    for(i = 0; i < rslt.length; i++) {
+        let e = rslt[i].match(re_i);
+
+        rslt[i] = { row : e[1]-1, column : 0, text : e[2], type : type};
+    }
+    return [rslt];
+  } catch(e) {
+    return [];
+  }
+};
+
+let errors = par(data.Errors, "error");
+let warnings = par(data.Warnings, "warning")
+
+errors.concat(warnings);
+@end
+
+
+@Rextester.Errors_D
+function par(dat, type, ttype) {
+  try {
+    let re_s = "([0-9]+).: "+ttype+" C[0-9]+:(.+)";
+    let re_g = new RegExp(re_s, "g");
+    let re_i = new RegExp(re_s, "i");
+
+    let rslt = dat.match(re_g);
+
+    let i = 0;
+    for(i = 0; i < rslt.length; i++) {
+        let e = rslt[i].match(re_i);
+
+        rslt[i] = { row : e[1]-1, column : 0, text : e[2], type : type};
+    }
+    return [rslt];
+  } catch(e) {
+    return [];
+  }
+};
+
+let errors = par(data.Errors, "error", "Error");
+let warnings = par(data.Warnings, "warning", "Warning")
+
+errors.concat(warnings);
+@end
+
+
+
+@Rextester.C: @Rextester._eval_(@uid,@C,`@0`,`@1`,`-Wall -std=gnu99 -O2 -o a.out source_file.c`,@Rextester.Errors_C)
+
+@Rextester.C_clang: @Rextester._eval_(@uid,@C_clang,`@0`,`@1`,`-Wall -std=gnu99 -O2 -o a.out source_file.c`,@Rextester.Errors_C)
+
+@Rextester.C_vc: @Rextester._eval_(@uid,@C_vc,`@0`,`@1`,`source_file.c -o a.exe`,@Rextester.Errors_VC)
+
+@Rextester.CPP: @Rextester._eval_(@uid,@CPP,`@0`,`@1`,`-Wall -std=c++14 -O2 -o a.out source_file.cpp`,@Rextester.Errors_C)
+
+@Rextester.CPP_clang: @Rextester._eval_(@uid,@CPP_clang,`@0`,`@1`,`-Wall -std=c++14 -O2 -o a.out source_file.cpp`,@Rextester.Errors_C)
+
+@Rextester.CPP_vc: @Rextester._eval_(@uid,@CPP_vc,`@0`,`@1`,`source_file.cpp -o a.exe /EHsc /MD /I C:\boost_1_60_0 /link /LIBPATH:C:\boost_1_60_0\stage\lib`,@Rextester.Errors_VC)
+
+@Rextester.D: @Rextester._eval_(@uid,@D,`@0`,`@1`,`source_file.d -ofa.out`,@Rextester.Errors_C)
+
+@Rextester.Go: @Rextester._eval_(@uid,@Go,`@0`,`@1`,`-o a.out source_file.go`)
+
+@Rextester.Haskell: @Rextester._eval_(@uid,@Haskell,`@0`,`@1`,`-o a.out source_file.hs`)
+
+@Rextester.ObjectiveC: @Rextester._eval_(@uid,@ObjectiveC,false,`@0`,`-MMD -MP -DGNUSTEP -DGNUSTEP_BASE_LIBRARY=1 -DGNU_GUI_LIBRARY=1 -DGNU_RUNTIME=1 -DGNUSTEP_BASE_LIBRARY=1 -fno-strict-aliasing -fexceptions -fobjc-exceptions -D_NATIVE_OBJC_EXCEPTIONS -pthread -fPIC -Wall -DGSWARN -DGSDIAGNOSE -Wno-import -g -O2 -fgnu-runtime -fconstant-string-class=NSConstantString -I. -I /usr/include/GNUstep -I/usr/include/GNUstep -o a.out source_file.m -lobjc -lgnustep-base`)
+
+@Rester.__eval
 <script>
 //var result = null;
 var error  = false;
@@ -107,6 +285,16 @@ $.ajax ({
 <div id="Files@1"> </div>
 @end
 
+
+@Rextester.eval2: @Rextester.__eval(6, ,"-Wall -std=gnu99 -O2 -o a.out source_file.c")
+
+@Rextester.eval_params2: @Rextester.__eval(6, ,"@0")
+
+@Rextester.eval_input2: @Rextester.__eval(6,`@input(1)`,"-Wall -std=gnu99 -O2 -o a.out source_file.c")
+
+
+
+
 -->
 
 # rextester_template
@@ -155,7 +343,8 @@ begin
     Put_Line ("Hello, world!");
 end Hello;
 ```
-@eval(@ADA,0,"")
+@Rextester.Ada
+
 
 ## Assembly
 
@@ -181,7 +370,7 @@ _start:
 	mov ebx,0            ; Exit with return code of 0 (no error)
 	int 80h;
 ```
-@eval(@NASM,0,"")
+@Rextester.eval(@Nasm)
 
 ## BASH
 
@@ -191,7 +380,7 @@ _start:
 
 echo "Hello, world!";
 ```
-@eval(@BASH,0,"")
+@Rextester.eval(@Bash)
 
 ## Brainfuck
 
@@ -232,29 +421,60 @@ This program prints out the words Hello World!:
 32 >>+.                    Add 1 to Cell #5 gives us an exclamation point
 33 >++.                    And finally a newline from Cell #6
 ```
-@eval(@Brainfuck,0,"")
+@Rextester.eval(@Brainfuck)
 
 The same program in minimised form:
 
 ```brainfuck
 ++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 ```
-@eval(@Brainfuck,``,"")
+@Rextester.eval(@Brainfuck)
 
 ## C
 
+__with gcc__
+
 ```c
-#include  <stdio.h>
+#include <stdio.h>
 
 int main(void)
 {
-    printf("Hello, world!\n");
-    return 0;
+  printf("Hello, world!");
+  return 0;
 }
 ```
-@eval(@clang_C, ,"-Wall -std=gnu99 -O2 -o a.out source_file.c")
+@Rextester.C
+
+__with clang__
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+  printf("Hello, world!");
+  return 0;
+}
+```
+@Rextester.C_clang
+
+__with vc__
+
+```c
+#include <stdio.h>
+
+int main(void)
+{
+  printf("Hello, world!");
+  return 0;
+}
+```
+@Rextester.C_vc
+
 
 ## C++
+
+__with g++__
 
 ```cpp
 #include <iostream>
@@ -264,7 +484,7 @@ int main()
     std::cout << "Hello, world!\n";
 }
 ```
-@eval(@CPP, ,"-Wall -std=c++14 -O2 -o a.out source_file.cpp")
+@Rextester.CPP
 
 
 ```cpp
@@ -283,8 +503,31 @@ int main()
 ``` bash stdin
 5
 ```
-@eval(@CPP,`@input(1)`,"-Wall -std=c++14 -O2 -o a.out source_file.cpp")
+@Rextester.CPP(true,`@input(1)`)
 
+__with clang__
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello, world!\n";
+}
+```
+@Rextester.CPP_clang
+
+__with vc++__
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello, world!\n";
+}
+```
+@Rextester.CPP_vc
 
 ## C#
 
@@ -306,11 +549,11 @@ namespace Rextester
     }
 }
 ```
-@eval(@C_sharp, 33,"")
+@Rextester.eval(@CSharp)
 
 ## D
 
-``` d
+``` D
 //DMD64 D Compiler 2.072.2
 
 import std.stdio;
@@ -320,7 +563,7 @@ void main()
     writeln("Hello, World!");
 }
 ```
-@eval(@D, 33,"source_file.d -ofa.out")
+@Rextester.D
 
 
 ## Elixir ![logo](https://avatars.githubusercontent.com/elixir-lang?s=128)<!-- height="22px" -->
@@ -330,7 +573,7 @@ void main()
 
 IO.puts "Hello, world!"
 ```
-@eval(@Elixir, 33,"")
+@Rextester.eval(@Elixir)
 
 ## Erlang
 
@@ -344,7 +587,7 @@ IO.puts "Hello, world!"
 	entry_point() ->
 		io:fwrite("Hello, world\n").
 ```
-@eval(@Erlang, 33,"")
+@Rextester.eval(@Erlang)
 
 ## F#
 
@@ -354,7 +597,7 @@ IO.puts "Hello, world!"
 open System
 printfn "Hello, World!"
 ```
-@eval(@F_sharp, 33,"")
+@Rextester.eval(@FSharp)
 
 ## Fortran
 
@@ -365,7 +608,7 @@ program hello
     print *, "Hello World!"
 end program hello
 ```
-@eval(@Fortran, 33,"")
+@Rextester.eval(@Fortran)
 
 ## Go
 
@@ -376,10 +619,10 @@ package main
 import "fmt"
 
 func main() {
-    fmt.Printf("hello, world\n")
+    fmt.Printf("Hello, world\n")
 }
 ```
-@eval(@GO, 33,"-o a.out source_file.go")
+@Rextester.Go
 
 ## Haskell
 
@@ -388,7 +631,7 @@ func main() {
 
 main = print $ "Hello, world!"
 ```
-@eval(@Haskell, 33,"-o a.out source_file.hs")
+@Rextester.Haskell
 
 
 ## Java
@@ -409,7 +652,7 @@ class Rextester
     }
 }
 ```
-@eval(@Java, 33,"")
+@Rextester.eval(@Java)
 
 
 ## Kotlin
@@ -421,7 +664,7 @@ fun main(args: Array<String>) {
     println("Hello, world!")
 }
 ```
-@eval(@Kotlin, 33,"")
+@Rextester.eval(@Kotlin)
 
 
 ## LISP ![logo](https://upload.wikimedia.org/wikipedia/commons/6/64/Lisplogo_alien_256.png)<!-- height="21px" -->
@@ -431,7 +674,7 @@ fun main(args: Array<String>) {
 
 (print "Hello, world!")
 ```
-@eval(@LISP, 33,"")
+@Rextester.eval(@LISP)
 
 ## LUA
 
@@ -440,7 +683,7 @@ fun main(args: Array<String>) {
 
 print ("Hello, World!")
 ```
-@eval(@LUA, 33,"")
+@Rextester.eval(@LUA)
 
 ## MySQL
 
@@ -452,7 +695,7 @@ print ("Hello, World!")
 
 select version() as 'mysql version'
 ```
-@eval(@MySQL, 33,"")
+@Rextester.eval(@MySQL)
 
 ## NodeJS
 
@@ -461,7 +704,7 @@ select version() as 'mysql version'
 
 console.log("Hello, World!");
 ```
-@eval(@NodeJS, 33,"")
+@Rextester.eval(@NodeJS)
 
 ## OCaml
 
@@ -470,7 +713,7 @@ console.log("Hello, World!");
 
 print_string "Hello, world!\n";;
 ```
-@eval(@OCaml, 33,"")
+@Rextester.eval(@OCaml)
 
 ## Octave
 
@@ -484,7 +727,7 @@ x=1:0.1:10;
 plot(x, sin(x));
 print -dpng some_name.png;
 ```
-@eval(@Octave, 33,"")
+@Rextester.eval(@Octave)
 
 ## Objective-C
 
@@ -501,7 +744,7 @@ int main (int argc, const char * argv[])
     return 0;
 }
 ```
-@eval(@ObjectiveC, 33,"-MMD -MP -DGNUSTEP -DGNUSTEP_BASE_LIBRARY=1 -DGNU_GUI_LIBRARY=1 -DGNU_RUNTIME=1 -DGNUSTEP_BASE_LIBRARY=1 -fno-strict-aliasing -fexceptions -fobjc-exceptions -D_NATIVE_OBJC_EXCEPTIONS -pthread -fPIC -Wall -DGSWARN -DGSDIAGNOSE -Wno-import -g -O2 -fgnu-runtime -fconstant-string-class=NSConstantString -I. -I /usr/include/GNUstep -I/usr/include/GNUstep -o a.out source_file.m -lobjc -lgnustep-base")
+@Rextester.ObjectiveC
 
 ## Oracle
 
@@ -513,7 +756,7 @@ int main (int argc, const char * argv[])
 
 select banner as "oracle version" from v$version
 ```
-@eval(@Oracle, 33,"")
+@Rextester.eval(@Oracle)
 
 ## Pascal
 
@@ -526,7 +769,7 @@ begin
     writeln('Hello, world!');
 end.
 ```
-@eval(@Pascal, 33,"")
+@Rextester.eval(@Pascal)
 
 ## Perl
 
@@ -535,7 +778,7 @@ end.
 
 print "Hello World\n";
 ```
-@eval(@Perl, 33,"")
+@Rextester.eval(@Perl)
 
 ## PHP
 
@@ -546,7 +789,7 @@ print "Hello World\n";
 
 ?>
 ```
-@eval(@PHP, 33,"")
+@Rextester.eval(@PHP)
 
 ## PostgreSQL
 
@@ -556,59 +799,19 @@ print "Hello World\n";
 
 select version() as postgresql_version
 ```
-@eval(@PostgreSQL, 33,"")
+@Rextester.eval(@PostgreSQL)
 
 ## Prolog
 
 ```prolog
-exists(A, list(A, _, _, _, _)).
-exists(A, list(_, A, _, _, _)).
-exists(A, list(_, _, A, _, _)).
-exists(A, list(_, _, _, A, _)).
-exists(A, list(_, _, _, _, A)).
+%commands to the interpreter are submitted from stdin input ('show input' box below)
+%'halt.' will be automatically appended to stdin input.
+%swi-prolog 7.2.3
 
-rightOf(R, L, list(L, R, _, _, _)).
-rightOf(R, L, list(_, L, R, _, _)).
-rightOf(R, L, list(_, _, L, R, _)).
-rightOf(R, L, list(_, _, _, L, R)).
-
-middle(A, list(_, _, A, _, _)).
-
-first(A, list(A, _, _, _, _)).
-
-nextTo(A, B, list(B, A, _, _, _)).
-nextTo(A, B, list(_, B, A, _, _)).
-nextTo(A, B, list(_, _, B, A, _)).
-nextTo(A, B, list(_, _, _, B, A)).
-nextTo(A, B, list(A, B, _, _, _)).
-nextTo(A, B, list(_, A, B, _, _)).
-nextTo(A, B, list(_, _, A, B, _)).
-nextTo(A, B, list(_, _, _, A, B)).
-
-puzzle(Houses) :-
-    exists(house(red, english, _, _, _), Houses),
-    exists(house(_, spaniard, _, _, dog), Houses),
-    exists(house(green, _, coffee, _, _), Houses),
-    exists(house(_, ukrainian, tea, _, _), Houses),
-    rightOf(house(green, _, _, _, _), house(ivory, _, _, _, _), Houses),
-    exists(house(_, _, _, oldgold, snails), Houses),
-    exists(house(yellow, _, _, kools, _), Houses),
-    middle(house(_, _, milk, _, _), Houses),
-    first(house(_, norwegian, _, _, _), Houses),
-    nextTo(house(_, _, _, chesterfield, _), house(_, _, _, _, fox), Houses),
-    nextTo(house(_, _, _, kools, _),house(_, _, _, _, horse), Houses),
-    exists(house(_, _, orangejuice, luckystike, _), Houses),
-    exists(house(_, japanese, _, parliament, _), Houses),
-    nextTo(house(_, norwegian, _, _, _), house(blue, _, _, _, _), Houses),
-    exists(house(_, _, water, _, _), Houses),
-    exists(house(_, _, _, _, zebra), Houses).
-
-solution(WaterDrinker, ZebraOwner) :-
-    puzzle(Houses),
-    exists(house(_, WaterDrinker, water, _, _), Houses),
-    exists(house(_, ZebraOwner, _, _, zebra), Houses).
+program :- write('Hello, world!').
+:- program.
 ```
-@eval(@Prolog,1,"")
+@Rextester.eval(@Prolog)
 
 
 ## Python2
@@ -617,7 +820,7 @@ solution(WaterDrinker, ZebraOwner) :-
 for i in range(10):
     print i
 ```
-@eval(@Python,0,"")
+@Rextester.eval(@Python)
 
 ## Python3
 
@@ -625,7 +828,7 @@ for i in range(10):
 for i in range(10):
     print("Hello World", i)
 ```
-@eval(@Python3,0,"")
+@Rextester.eval(@Python3)
 
 ## R
 
@@ -643,7 +846,7 @@ plot(table(rpois(100, 5)), type = "h", col = "red", lwd = 10, main = "rpois(100,
 plot(x <- sort(rnorm(47)), type = "s")
 points(x, cex = .5, col = "dark red")
 ```
-@eval(@R,1,"")
+@Rextester.eval(@R)
 
 ## Ruby
 
@@ -652,7 +855,7 @@ points(x, cex = .5, col = "dark red")
 
 puts "Hello, world!"
 ```
-@eval(@Ruby,1,"")
+@Rextester.eval(@Ruby)
 
 ## Scala
 
@@ -665,16 +868,16 @@ object Rextester extends App {
     println("Hello, World!")
 }
 ```
-@eval(@Scala,1,"")
+@Rextester.eval(@Scala)
 
 ## Scheme
 
-```lisp
+```scheme
 ;guile 2.0.11
 
 (display "Hello, World!")
 ```
-@eval(@Scheme,1,"")
+@Rextester.eval(@Scheme)
 
 ## SQL-Server
 
@@ -684,7 +887,7 @@ object Rextester extends App {
 
 select @@version as 'sql server version'
 ```
-@eval(@SQL_server,1,"")
+@Rextester.eval(@SQL_Server)
 
 ## Swift
 
@@ -693,7 +896,7 @@ select @@version as 'sql server version'
 
 print("Hello, world!")
 ```
-@eval(@Swift,1,"")
+@Rextester.eval(@Swift)
 
 
 ## TCL
@@ -703,11 +906,11 @@ print("Hello, world!")
 
 puts "Hello, world!"
 ```
-@eval(@TCL,1,"")
+@Rextester.eval(@TCL)
 
 ## Visual BASIC
 
-``` purebasic
+``` basic
 'Rextester.Program.Main is the entry point for your code. Don't change it.
 'Compiler version 11.0.50709.17929 for Microsoft (R) .NET Framework 4.5
 
@@ -725,4 +928,4 @@ Namespace Rextester
     End Module
 End Namespace
 ```
-@eval(@BASIC,1,"")
+@Rextester.eval(@Basic)
