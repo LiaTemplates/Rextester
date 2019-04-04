@@ -262,6 +262,9 @@ by using the [rextester api](http://rextester.com).
 
 __Try it on LiaScript:__
 
+<!-- hidden = "true" -->
+![demo](demo.gif)
+
 https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md
 
 __See the project on Github:__
