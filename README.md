@@ -2,7 +2,7 @@
 
 author:   André Dietrich
 email:    andre.dietrich@ovgu.de
-version:  0.2.0
+version:  0.3.0
 language: en
 narrator: US English Female
 
@@ -253,7 +253,7 @@ errors.concat(warnings);
 
 -->
 
-# rextester_template
+# Rextester - Template
 
                          --{{0}}--
 A template for executing code snippets in
@@ -265,16 +265,16 @@ __Try it on LiaScript:__
 <!-- hidden = "true" -->
 ![demo](demo.gif)
 
-https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md
+https://liascript.github.io/course/?https://raw.githubusercontent.com/liaTemplates/rextester/master/README.md
 
 __See the project on Github:__
 
-https://github.com/liaScript/rextester_template
+https://github.com/liaTemplates/rextester
 
                          --{{1}}--
 There are three ways to use this template. The easiest way is to use the
-`import` statement and the url of the raw text-file of the master branch or any
-other branch or version. But you can also copy the required functionionality
+`import` statement and the URL of the raw text-file of the master branch or any
+other branch or version. But you can also copy the required functionality
 directly into the header of your Markdown document, see therefor the
 [Implementation](#42). And of course, you could also clone this project and
 change it, as you wish.
@@ -282,7 +282,7 @@ change it, as you wish.
                            {{1}}
 1. Load the macros via
 
-`import: https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md`
+`import: https://raw.githubusercontent.com/liaTemplates/rextester/master/README.md`
 
 2. Copy the definitions into your Project
 
@@ -962,7 +962,7 @@ End Namespace
 ## Implementation
 
                          --{{0}}--
-This macro implementation might look a bit complex from a first clace, compared
+This macro implementation might look a bit complex from a first glace, compared
 to others. But actually most macro make use of the hidden macro
 `@Rextester._eval_`, which takes in 6 parameters.
 
@@ -970,8 +970,8 @@ to others. But actually most macro make use of the hidden macro
 2. the number code for the compiler, which can also be defined via `@C`,
    `@Java`, etc.
 3. show debug information (these are some stats) and the default is false
-4. additonal input, that is passed to stdout while running a program
-5. additonal compile-time arguments
+4. additional input, that is passed to `stdout` while running a program
+5. additional compile-time arguments
 6. a JavaScript function to be used for parsing the errors and warnings
 
 ````html
@@ -1228,4 +1228,4 @@ raw file of this document.
 
 
                            {{1}}
-https://raw.githubusercontent.com/liaScript/rextester_template/master/README.md
+https://raw.githubusercontent.com/liaTemplates/rextester/master/README.md
