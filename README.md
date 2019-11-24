@@ -2,9 +2,15 @@
 
 author:   André Dietrich
 email:    andre.dietrich@ovgu.de
-version:  0.3.1
+version:  0.3.2
 language: en
 narrator: US English Female
+
+logo:     https://live.staticflickr.com/3912/15090961835_c4f26e4890_b.jpg
+
+comment:  This is a template for the Rextester-Api, which allows to execute code
+          in more than 40 different programming languages (e.g., Ada, Brainfuck,
+          C, Java, Lua, ...)
 
 script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 
