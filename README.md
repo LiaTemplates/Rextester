@@ -2,7 +2,7 @@
 
 author:   André Dietrich
 email:    andre.dietrich@ovgu.de
-version:  0.3.2
+version:  0.3.3
 language: en
 narrator: US English Female
 
@@ -65,6 +65,8 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 
 @Rextester._eval_
 <script>
+var span_id = "rextester_@0"
+
 function stats(data, show) {
   if(!show)
     return "";
