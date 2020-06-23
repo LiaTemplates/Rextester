@@ -2,7 +2,7 @@
 
 author:   André Dietrich
 email:    andre.dietrich@ovgu.de
-version:  0.3.2
+version:  0.3.4
 language: en
 narrator: US English Female
 
@@ -65,6 +65,8 @@ script:   https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 
 @Rextester._eval_
 <script>
+var span_id = "rextester_@0"
+
 function stats(data, show) {
   if(!show)
     return "";
@@ -84,11 +86,11 @@ else
   debug = false;
 
 let input = `@3`;
-if(input[0]=='@' && input[1]=='2')
+if(input[0]=="@" && input[1]=='2')
   input = "";
 
 let args = "@4";
-if(args[0]=='@' && args[1]=='3')
+if(args[0]=="@" && args[1]=='3')
   args = "";
 
 
@@ -97,7 +99,7 @@ $.ajax ({
   type: "POST",
   timeout: 10000,
   data: { LanguageChoice: @1,
-          Program: `@input`,
+          Program: `@'input`,
           Input: input,
           CompilerArgs : args}
   }).done(function(data) {
@@ -115,7 +117,7 @@ $.ajax ({
       console.debug("\n\n"+stat);
 
     if (data.Files != null) {
-      $('#rextester_@0').empty();
+      $("#rextester_@0").empty();
       for (var key in data.Files) {
         var img_div = $(document.createElement('div'));
         var img = $(document.createElement('img'));
@@ -123,7 +125,7 @@ $.ajax ({
         img.attr('src', "data:image/png;base64," + data.Files[key]).height(600).width(700);
 
         img.appendTo(img_div);
-        img_div.appendTo($('#rextester_@0'));
+        img_div.appendTo($("#rextester_@0"));
       }
     }
 
